@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Feedback</title>
+    <style>
+        .radio-inline {
+          display: inline;
+          margin-right: 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>User Feedback Form</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="/">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"><br>
+      <label for="feedback">Feedback:</label><br>
+      <div class="radio-inline">
+        <input type="radio" id="excellent" name="feedback" value="Excellent">
+        <label for="excellent">Excellent</label>
+      </div>
+      <div class="radio-inline">
+        <input type="radio" id="good" name="feedback" value="Good">
+        <label for="good">Good</label>
+      </div>
+      <div class="radio-inline">
+        <input type="radio" id="average" name="feedback" value="Average">
+        <label for="average">Average</label>
+      </div>
+      <div class="radio-inline">
+        <input type="radio" id="poor" name="feedback" value="Poor">
+        <label for="poor">Poor</label>
+      </div><br>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
