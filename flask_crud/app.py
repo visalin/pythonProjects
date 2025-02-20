@@ -97,5 +97,14 @@ def update_task(task_id):
     flash('Task updated successfully', 'success')
     return redirect('/')
 
+@app.route('/uncompleted')
+def show_uncompleted():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM tasks WHERE completed = 0')  # Select only uncompleted tasks
+    tasks = cursor.fetchall()
+    conn.close()
+    return render_template('index.html', tasks=tasks)
+
 if __name__ == '__main__':
     app.run(debug=True)
