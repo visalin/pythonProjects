@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function confirmDelete(taskId) {
+            if (confirm("Are you sure you want to delete this task?")) {
+                window.location.href = "/delete/" + taskId;
+            }
+        }
+        function confirmDeleteAll() {
+            return confirm("Are you sure you want to delete all tasks?");
+        }
+    </script>
+</head>
+<body>
+    <h1>Task List</h1>
+     <!-- Flash messages section -->
+     {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+         <ul class="flashes">
+             {% for category, message in messages %}
+                 <li class="{{ category }}">{{ message }}</li>
+             {% endfor %}
+         </ul>
+      {% endif %}
+    {% endwith %}
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="New Task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+        <li>
+                {{ task['title'] }}
+                [Completed: {{ 'Yes' if task['completed'] else 'No' }}]
+                {% if task.completed %}
+                <span style="text-decoration: line-through;">{{ task.task }} </span>  
+            {% else %}
+                {{ task.task }}   
+            {% endif %}
+            <a href="javascript:void(0);" onclick="confirmDelete('{{ task.id }}')">Delete</a>
+            <a href="/complete/{{ task.id }}">✔️</a>
+            <a href="/edit/{{ task.id }}">Edit</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <form action="/deleteall" method="get" onsubmit="return confirmDeleteAll();">
+        <button type="submit">Delete All Tasks</button>
+</body>
+</html>

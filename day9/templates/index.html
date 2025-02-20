@@ -21,7 +21,7 @@
     
     <form action="/add" method="post">
         <input type="text" name="task" placeholder="Enter a task" required>
-        <input type="date" name="due_date" required>  <!-- Highlighted change -->
+        <input type="date" name="due_date" required> 
         <button type="submit">Add Task</button>
     </form>
     <ul>
@@ -30,7 +30,7 @@
                 {% if task.completed %}
                     <span style="text-decoration: line-through;">{{ task.task }} - Due: {{ task.due_date }}</span>  <!-- Highlighted change -->
                 {% else %}
-                    {{ task.task }} - Due: {{ task.due_date }}  <!-- Highlighted change -->
+                    {{ task.task }} - Due: {{ task.due_date }}  
                 {% endif %}
                 <a href="/complete/{{ loop.index0 }}">✔️</a>
                 <a href="/delete/{{ loop.index0 }}">❌</a>

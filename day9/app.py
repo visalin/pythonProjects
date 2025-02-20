@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
-from datetime import datetime  # Highlighted change
+from datetime import datetime  
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -13,8 +13,8 @@ def home():
 @app.route('/add', methods=['POST'])
 def add_task():
     task = request.form.get('task')
-    due_date = request.form.get('due_date')  # Highlighted change
-    if task and due_date:  # Highlighted change
+    due_date = request.form.get('due_date')  
+    if task and due_date:  
         tasks.append({'task': task, 'completed': False, 'due_date': due_date})  # Highlighted change
         flash('Task added successfully', 'success')
     return redirect(url_for('home'))
